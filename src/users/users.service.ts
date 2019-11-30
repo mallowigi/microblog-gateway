@@ -1,4 +1,4 @@
-import { usersGrpcClientOptions } from '@micro/common/dist/proto/users/option';
+import { usersGrpcClientOptions } from '@micro/common/dist/src';
 import { Injectable }             from '@nestjs/common';
 import { Client, ClientGrpc }     from '@nestjs/microservices';
 
