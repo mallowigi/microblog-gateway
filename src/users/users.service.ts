@@ -2,9 +2,8 @@ import { Pagination, Query, usersGrpcClientOptions } from '@micro/common/dist/sr
 import { Injectable }                                from '@nestjs/common';
 import { Client, ClientGrpc }                        from '@nestjs/microservices';
 import { Observable }                                from 'rxjs';
-import { reduce }                                    from 'rxjs/operators';
 
-interface User {
+export interface User {
   id: number;
   username: string;
   password: string;
@@ -30,7 +29,6 @@ export class UsersService {
   }
 
   getUsers({ query, pagination }) {
-    return this.grpcUsersService.list({ query, pagination })
-               .pipe(reduce((acc, user) => [user, ...acc], []));
+    return this.grpcUsersService.list({ query, pagination });
   }
 }
