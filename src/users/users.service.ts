@@ -2,6 +2,7 @@ import { Pagination, Query, usersGrpcClientOptions } from '@micro/common/dist/sr
 import { Injectable }                                from '@nestjs/common';
 import { Client, ClientGrpc }                        from '@nestjs/microservices';
 import { Observable }                                from 'rxjs';
+import { map }                                       from 'rxjs/operators';
 
 export interface User {
   id: number;
@@ -12,9 +13,9 @@ export interface User {
 interface GrpcUsersService {
   list(data: { query: Query, pagination: Pagination }): Observable<User>;
 
-  get();
+  get(data: { id: string }): User;
 
-  create();
+  create(data: { password: string; username: string }): Observable<User>;
 }
 
 @Injectable()
@@ -30,5 +31,14 @@ export class UsersService {
 
   getUsers({ query, pagination }) {
     return this.grpcUsersService.list({ query, pagination });
+  }
+
+  getUser({ id }) {
+    return this.grpcUsersService.get({ id });
+  }
+
+  createUser({ username, password }) {
+    return this.grpcUsersService.create({ username, password })
+               .pipe(map((x: any) => x.user));
   }
 }
