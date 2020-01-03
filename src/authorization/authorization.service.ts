@@ -14,7 +14,7 @@ import {
 import { Injectable }                     from '@nestjs/common';
 import { Client, ClientGrpc }             from '@nestjs/microservices';
 
-interface GrpcAuthorizationService {
+export interface GrpcAuthorizationService {
   can(data: CanRequest): Promise<CanResponse>;
 
   canOnInstance(req: CanOnInstanceRequest): Promise<CanOnInstanceResponse>;
