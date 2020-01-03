@@ -5,7 +5,7 @@ import { Client, ClientGrpc }                                                   
 import { Observable }                                                                                    from 'rxjs';
 
 interface GrpcUsersService {
-  list(data: ListUsersRequest): Observable<IUser>;
+  list(data: ListUsersRequest): Promise<Observable<IUser>>;
 
   get(data: GetUserRequest): Promise<IUser>;
 
@@ -23,7 +23,7 @@ export class UsersService implements IUsersService {
     this.grpcUsersService = this.client.getService<GrpcUsersService>('UsersService');
   }
 
-  list(req: ListUsersRequest): Observable<IUser> {
+  list(req: ListUsersRequest): Promise<Observable<IUser>> {
     return this.grpcUsersService.list(req);
   }
 

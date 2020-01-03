@@ -14,12 +14,13 @@ export class UsersController {
   public async getUsers(@Param('authorId') authorId: string,
                         @Param('page') page: number,
                         @Param('limit') limit: number): Promise<Observable<IUser[]>> {
-    return this.usersService
-               .list({
-                 query:      { authorId },
-                 pagination: { page, limit },
-               })
-               .pipe(reduce<IUser, IUser[]>((acc, curr) => [curr, ...acc], []));
+    const userObservable = await this.usersService.list({
+      query:      { authorId },
+      pagination: { page, limit },
+    });
+
+    // consume observable
+    return userObservable.pipe(reduce<IUser, IUser[]>((acc, curr) => [curr, ...acc], []));
   }
 
   @Get(':id')
