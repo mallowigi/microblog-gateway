@@ -1,25 +1,19 @@
-import { Pagination, Query, usersGrpcClientOptions } from '@micro/common/dist/src';
-import { Injectable }                                from '@nestjs/common';
-import { Client, ClientGrpc }                        from '@nestjs/microservices';
-import { Observable }                                from 'rxjs';
-import { map }                                       from 'rxjs/operators';
-
-export interface User {
-  id: number;
-  username: string;
-  password: string;
-}
+import { usersGrpcClientOptions }                                                                        from '@micro/common/dist/src';
+import { CreateUserRequest, CreateUserResponse, GetUserRequest, IUser, IUsersService, ListUsersRequest } from '@micro/common/src/types/users';
+import { Injectable }                                                                                    from '@nestjs/common';
+import { Client, ClientGrpc }                                                                            from '@nestjs/microservices';
+import { Observable }                                                                                    from 'rxjs';
 
 interface GrpcUsersService {
-  list(data: { query: Query, pagination: Pagination }): Observable<User>;
+  list(data: ListUsersRequest): Observable<IUser>;
 
-  get(data: { id: string }): User;
+  get(data: GetUserRequest): Promise<IUser>;
 
-  create(data: { password: string; username: string }): Observable<User>;
+  create(data: CreateUserRequest<IUser>): Promise<CreateUserResponse<IUser>>;
 }
 
 @Injectable()
-export class UsersService {
+export class UsersService implements IUsersService {
   @Client(usersGrpcClientOptions)
   private client: ClientGrpc;
 
@@ -29,16 +23,15 @@ export class UsersService {
     this.grpcUsersService = this.client.getService<GrpcUsersService>('UsersService');
   }
 
-  getUsers({ query, pagination }) {
-    return this.grpcUsersService.list({ query, pagination });
+  list(req: ListUsersRequest): Observable<IUser> {
+    return this.grpcUsersService.list(req);
   }
 
-  getUser({ id }) {
-    return this.grpcUsersService.get({ id });
+  get(req: GetUserRequest): Promise<IUser> {
+    return this.grpcUsersService.get(req);
   }
 
-  createUser({ username, password }) {
-    return this.grpcUsersService.create({ username, password })
-               .pipe(map((x: any) => x.user));
+  create(req: CreateUserRequest<IUser>): Promise<CreateUserResponse<IUser>> {
+    return this.grpcUsersService.create(req);
   }
 }
