@@ -1,5 +1,5 @@
-import { usersGrpcClientOptions }                                               from '@micro/common/dist/src';
-import { CanOnInstanceRequest, CanOnInstanceResponse, CanRequest, CanResponse } from '@micro/common/types/authorization';
+import { authorizationGrpcClientOptions }                                       from '@micro/common/dist/src';
+import { CanOnInstanceRequest, CanOnInstanceResponse, CanRequest, CanResponse } from '@micro/common/src/types/authorization';
 import { Injectable }                                                           from '@nestjs/common';
 import { Client, ClientGrpc }                                                   from '@nestjs/microservices';
 
@@ -11,13 +11,13 @@ interface GrpcAuthorizationService {
 
 @Injectable()
 export class AuthorizationService {
-  @Client(usersGrpcClientOptions)
+  @Client(authorizationGrpcClientOptions)
   private client: ClientGrpc;
 
   private grpcAuthorizationService: GrpcAuthorizationService;
 
   onModuleInit() {
-    this.grpcAuthorizationService = this.client.getService<GrpcAuthorizationService>('AuthorizationService');
+    this.grpcAuthorizationService = this.client.getService<GrpcAuthorizationService>('RolesService');
   }
 
   public can(req: CanRequest): CanResponse {

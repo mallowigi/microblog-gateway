@@ -1,4 +1,4 @@
-import { CanOnInstanceRequest, CanRequest } from '@micro/common/types/authorization';
+import { CanOnInstanceRequest, CanRequest } from '@micro/common/src/types/authorization';
 import { Controller, Get }                  from '@nestjs/common';
 import { AuthorizationService }             from 'src/authorization/authorization.service';
 
