@@ -4,23 +4,15 @@ import { Injectable }                                                           
 import { Client, ClientGrpc }                                                                            from '@nestjs/microservices';
 import { Observable }                                                                                    from 'rxjs';
 
-interface GrpcUsersService {
-  list(data: ListUsersRequest): Promise<Observable<IUser>>;
-
-  get(data: GetUserRequest): Promise<IUser>;
-
-  create(data: CreateUserRequest<IUser>): Promise<CreateUserResponse<IUser>>;
-}
-
 @Injectable()
 export class UsersService implements IUsersService {
   @Client(usersGrpcClientOptions)
   private client: ClientGrpc;
 
-  private grpcUsersService: GrpcUsersService;
+  private grpcUsersService: IUsersService;
 
   onModuleInit() {
-    this.grpcUsersService = this.client.getService<GrpcUsersService>('UsersService');
+    this.grpcUsersService = this.client.getService<IUsersService>('UsersService');
   }
 
   list(req: ListUsersRequest): Promise<Observable<IUser>> {

@@ -14,25 +14,15 @@ import {
 import { Injectable }                     from '@nestjs/common';
 import { Client, ClientGrpc }             from '@nestjs/microservices';
 
-export interface GrpcAuthorizationService {
-  can(data: CanRequest): Promise<CanResponse>;
-
-  canOnInstance(req: CanOnInstanceRequest): Promise<CanOnInstanceResponse>;
-
-  createRole(req: CreateRoleRequest): Promise<CreateRoleResponse<IRole>>;
-
-  getRoles(req: GetRolesRequest): Promise<GetRolesResponse<IRole>>;
-}
-
 @Injectable()
 export class AuthorizationService implements IRolesService<IRole> {
   @Client(authorizationGrpcClientOptions)
   private client: ClientGrpc;
 
-  private grpcAuthorizationService: GrpcAuthorizationService;
+  private grpcAuthorizationService: IRolesService<IRole>;
 
   onModuleInit() {
-    this.grpcAuthorizationService = this.client.getService<GrpcAuthorizationService>('RolesService');
+    this.grpcAuthorizationService = this.client.getService<IRolesService<IRole>>('RolesService');
   }
 
   public can(req: CanRequest): Promise<CanResponse> {
