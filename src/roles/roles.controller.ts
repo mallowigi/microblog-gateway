@@ -1,6 +1,6 @@
-import { GetRolesResponse, IRole } from '@micro/common/src/types/authorization';
-import { Controller, Get, Param }  from '@nestjs/common';
-import { AuthorizationService }    from 'src/authorization/authorization.service';
+import { CreateRoleRequest, CreateRoleResponse, GetRolesResponse, IRole } from '@micro/common/src/types/authorization';
+import { Body, Controller, Get, Param, Post }                             from '@nestjs/common';
+import { AuthorizationService }                                           from 'src/authorization/authorization.service';
 
 @Controller('roles')
 export class RolesController {
@@ -13,13 +13,8 @@ export class RolesController {
     return await this.rolesService.getRoles({ userId });
   }
 
-  // @Get(':id')
-  // public async getRole(@Param('id') id: string): Promise<IRole> {
-  //   return this.rolesService.get({ id });
-  // }
-  //
-  // @Post()
-  // public async createRole(@Body() user: CreateUserRequest<IRole>): Promise<CreateUserResponse<IRole>> {
-  //   return this.rolesService.create(user);
-  // }
+  @Post()
+  public async createRole(@Body() role: CreateRoleRequest): Promise<CreateRoleResponse<IRole>> {
+    return this.rolesService.createRole(role);
+  }
 }
