@@ -1,18 +1,13 @@
-import { authorizationGrpcClientOptions } from '@micro/common/dist/src';
-import {
-  CanOnInstanceRequest,
-  CanOnInstanceResponse,
-  CanRequest,
-  CanResponse,
-  CreateRoleRequest,
-  CreateRoleResponse,
-  GetRolesRequest,
-  GetRolesResponse,
-  IRole,
-  IRolesService,
-}                                         from '@micro/common/src/types/authorization';
 import { Injectable }                     from '@nestjs/common';
 import { Client, ClientGrpc }             from '@nestjs/microservices';
+import {
+  IRolesService,
+  authorizationGrpcClientOptions,
+  IRole,
+  CanRequest,
+  CanResponse,
+  CanOnInstanceRequest, CanOnInstanceResponse, CreateRoleRequest, CreateRoleResponse, GetRolesRequest, GetRolesResponse,
+} from '@mallowigi/common';
 
 @Injectable()
 export class AuthorizationService implements IRolesService<IRole> {

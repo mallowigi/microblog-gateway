@@ -1,8 +1,8 @@
-import { CreateUserRequest, CreateUserResponse, IUser } from '@micro/common/src/types/users';
 import { Body, Controller, Get, Param, Post }           from '@nestjs/common';
 import { Observable }                                   from 'rxjs';
 import { reduce }                                       from 'rxjs/operators';
 import { UsersService }                                 from 'src/users/users.service';
+import { IUser, CreateUserRequest, CreateUserResponse } from '@mallowigi/common';
 
 @Controller('users')
 export class UsersController {

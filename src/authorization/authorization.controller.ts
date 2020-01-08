@@ -1,6 +1,6 @@
-import { CanOnInstanceRequest, CanRequest } from '@micro/common/src/types/authorization';
 import { Controller, Get }                  from '@nestjs/common';
 import { AuthorizationService }             from 'src/authorization/authorization.service';
+import { CanRequest, CanOnInstanceRequest } from '@mallowigi/common';
 
 @Controller('authorization')
 export class AuthorizationController {

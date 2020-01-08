@@ -1,6 +1,6 @@
-import { CreateRoleRequest, CreateRoleResponse, GetRolesResponse, IRole } from '@micro/common/src/types/authorization';
 import { Body, Controller, Get, Param, Post }                             from '@nestjs/common';
 import { AuthorizationService }                                           from 'src/authorization/authorization.service';
+import { GetRolesResponse, IRole, CreateRoleRequest, CreateRoleResponse } from '@mallowigi/common';
 
 @Controller('roles')
 export class RolesController {
