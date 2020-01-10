@@ -1,4 +1,3 @@
-import { CanOnInstanceRequest }   from '@mallowigi/common';
 import { AuthorizationService }   from '@mallowigi/gateway/src/authorization/authorization.service';
 import { Controller, Get, Query } from '@nestjs/common';
 
@@ -16,7 +15,10 @@ export class AuthorizationController {
   }
 
   @Get('canOnInstance')
-  public async canOnInstance(req: CanOnInstanceRequest) {
-    return this.authorizationService.canOnInstance(req);
+  public async canOnInstance(@Query('userId') userId: string,
+                             @Query('action') action: string,
+                             @Query('subject') subject: string,
+                             @Query('subjectId') subjectId: string) {
+    return this.authorizationService.canOnInstance({ action, subject, subjectId, userId });
   }
 }
