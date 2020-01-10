@@ -1,6 +1,6 @@
-import { CanOnInstanceRequest, CanRequest } from '@mallowigi/common';
-import { AuthorizationService }             from '@mallowigi/gateway/src/authorization/authorization.service';
-import { Controller, Get }                  from '@nestjs/common';
+import { CanOnInstanceRequest }   from '@mallowigi/common';
+import { AuthorizationService }   from '@mallowigi/gateway/src/authorization/authorization.service';
+import { Controller, Get, Query } from '@nestjs/common';
 
 @Controller('authorization')
 export class AuthorizationController {
@@ -9,8 +9,10 @@ export class AuthorizationController {
   }
 
   @Get('can')
-  public async can(req: CanRequest) {
-    return this.authorizationService.can(req);
+  public async can(@Query('userId') userId: string,
+                   @Query('action') action: string,
+                   @Query('subject') subject: string) {
+    return this.authorizationService.can({ action, subject, userId });
   }
 
   @Get('canOnInstance')
