@@ -9,21 +9,14 @@ import {
   GetRolesResponse,
   IRole,
   IRolesService,
-}                                        from '@mallowigi/common';
-import { Injectable }                    from '@nestjs/common';
-import { Client, ClientGrpc, Transport } from '@nestjs/microservices';
-import { join }                          from 'path';
+}                                  from '@mallowigi/common';
+import { authorizationGrpcClient } from '@mallowigi/gateway/src/clients.provider';
+import { Injectable }              from '@nestjs/common';
+import { Client, ClientGrpc }      from '@nestjs/microservices';
 
 @Injectable()
 export class AuthorizationService implements IRolesService<IRole> {
-  @Client({
-    transport: Transport.GRPC,
-    options:   {
-      url:       '0.0.0.0:50052',
-      package:   'service',
-      protoPath: join(__dirname, '../../../common/proto/authorization/service.proto'),
-    },
-  })
+  @Client(authorizationGrpcClient)
   private client: ClientGrpc;
 
   private grpcAuthorizationService: IRolesService<IRole>;

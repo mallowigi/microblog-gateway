@@ -1,19 +1,12 @@
 import { CreateUserRequest, CreateUserResponse, GetUserByIdRequest, IUser, IUsersService, ListUsersRequest } from '@mallowigi/common';
+import { usersGrpcClient }                                                                                   from '@mallowigi/gateway/src/clients.provider';
 import { Injectable }                                                                                        from '@nestjs/common';
-import { Client, ClientGrpc, Transport }                                                                     from '@nestjs/microservices';
-import { join }                                                                                              from 'path';
+import { Client, ClientGrpc }                                                                                from '@nestjs/microservices';
 import { Observable }                                                                                        from 'rxjs';
 
 @Injectable()
 export class UsersService implements IUsersService {
-  @Client({
-    transport: Transport.GRPC,
-    options:   {
-      url:       '0.0.0.0:50053',
-      package:   'service',
-      protoPath: join(__dirname, '../../../common/proto/users/service.proto'),
-    },
-  })
+  @Client(usersGrpcClient)
   private client: ClientGrpc;
 
   private grpcUsersService: IUsersService;
