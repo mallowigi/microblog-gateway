@@ -1,3 +1,5 @@
+import { AuthController }          from '@mallowigi/gateway/src/auth/auth.controller';
+import { AuthService }             from '@mallowigi/gateway/src/auth/auth.service';
 import { AuthorizationController } from '@mallowigi/gateway/src/authorization/authorization.controller';
 import { AuthorizationService }    from '@mallowigi/gateway/src/authorization/authorization.service';
 import { clientsProviders }        from '@mallowigi/gateway/src/clients.provider';
@@ -8,7 +10,7 @@ import { Module }                  from '@nestjs/common';
 
 @Module({
   imports:     [],
-  controllers: [UsersController, AuthorizationController, RolesController],
-  providers:   [...clientsProviders, UsersService, AuthorizationService],
+  controllers: [UsersController, AuthorizationController, RolesController, AuthController],
+  providers:   [...clientsProviders, UsersService, AuthorizationService, AuthService],
 })
 export class AppModule {}
