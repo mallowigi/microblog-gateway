@@ -1,8 +1,15 @@
-import { CreateUserRequest, CreateUserResponse, GetUserByIdRequest, IUser, IUsersService, ListUsersRequest } from '@mallowigi/common';
-import { usersGrpcClient }                                                                                   from '@mallowigi/gateway/src/clients.provider';
-import { Injectable }                                                                                        from '@nestjs/common';
-import { Client, ClientGrpc }                                                                                from '@nestjs/microservices';
-import { Observable }                                                                                        from 'rxjs';
+import {
+  CreateUserRequest,
+  CreateUserResponse,
+  GetUserByIdRequest,
+  IUser,
+  IUsersService,
+  ListUsersRequest,
+  usersGrpcClient,
+}                             from '@mallowigi/common';
+import { Injectable }         from '@nestjs/common';
+import { Client, ClientGrpc } from '@nestjs/microservices';
+import { Observable }         from 'rxjs';
 
 @Injectable()
 export class UsersService implements IUsersService {
@@ -23,7 +30,7 @@ export class UsersService implements IUsersService {
     return this.grpcUsersService.get(req);
   }
 
-  create(req: CreateUserRequest<IUser>): Promise<CreateUserResponse<IUser>> {
+  create(req: CreateUserRequest): Promise<CreateUserResponse<IUser>> {
     return this.grpcUsersService.create(req);
   }
 }

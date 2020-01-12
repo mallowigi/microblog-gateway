@@ -1,4 +1,5 @@
 import {
+  authorizationGrpcClient,
   CanOnInstanceRequest,
   CanOnInstanceResponse,
   CanRequest,
@@ -9,10 +10,9 @@ import {
   GetRolesResponse,
   IRole,
   IRolesService,
-}                                  from '@mallowigi/common';
-import { authorizationGrpcClient } from '@mallowigi/gateway/src/clients.provider';
-import { Injectable }              from '@nestjs/common';
-import { Client, ClientGrpc }      from '@nestjs/microservices';
+}                             from '@mallowigi/common';
+import { Injectable }         from '@nestjs/common';
+import { Client, ClientGrpc } from '@nestjs/microservices';
 
 @Injectable()
 export class AuthorizationService implements IRolesService<IRole> {
