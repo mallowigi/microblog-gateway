@@ -30,11 +30,11 @@
     "compression": "^1.7.4",
     "install": "^0.13.0",
     "reflect-metadata": "^0.1.13",
+    "@mallowigi/common": "latest",
     "rimraf": "^3.0.0",
     "rxjs": "^6.5.4"
   },
   "devDependencies": {
-    "@mallowigi/common": "^1.1.0",
     "@nestjs/cli": "^6.13.3",
     "@nestjs/schematics": "^6.8.2",
     "@nestjs/testing": "^6.10.14",
